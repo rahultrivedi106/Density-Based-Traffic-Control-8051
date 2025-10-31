@@ -1,0 +1,8 @@
+Components List:
+- AT89S52 microcontroller
+- 8 x IR sensors (2 per lane)
+- 12 x LEDs (4R,4Y,4G)
+- 12 x 330Ω resistors
+- USB 5V supply
+- Crystal 11.0592 MHz
+- Breadboard/PCB and jumper wires
