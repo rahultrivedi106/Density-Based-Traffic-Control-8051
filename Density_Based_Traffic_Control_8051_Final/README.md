@@ -31,7 +31,7 @@ Based on traffic density, the controller dynamically allocates the **green light
 | AT89S52 Microcontroller | 1 | 8051-based 40-pin MCU |
 | IR Sensors | 8 | Two per lane (Entry/Exit) |
 | LEDs | 12 | 4 sets of R, Y, G lights |
-| Resistors & Transistors | As required | LED driving & current limiting |
+| Resistors & Transistors |  | LED driving & current limiting |
 | USB Power Supply | 1 | 5V regulated |
 | Connecting Wires | — | Signal and power lines |
 | Flash Magic Tool | 1 | For HEX programming |
