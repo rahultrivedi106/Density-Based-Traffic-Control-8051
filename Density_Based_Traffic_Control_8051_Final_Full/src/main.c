@@ -1,9 +1,9 @@
 /* 
  Density Based Traffic Light Control System (4-way, dual-sensor per lane)
- Priority-based dynamic green assignment
- AT89S52 (8051 family) - Plain C, Keil µVision compatible
+ Priority-based dynamic green assignment - Plain C (Keil compatible)
  Author: Rahul Trivedi, M.Tech
- Note: Presence-based demo. For production, use interrupt-driven counters.
+ Note: This is a reference implementation (presence-based demo). For production, use
+ interrupt-driven counters and hardware debouncing.
 */
 
 #include <reg52.h>
@@ -28,7 +28,6 @@ unsigned char read_presence(unsigned char entry_pin, unsigned char exit_pin) {
 }
 
 // Map density (0-2) to a density score for prioritization. For demo, we treat presence sum as density.
-// In extended implementation, maintain counters over time.
 unsigned int density_score(unsigned char count) {
     return (unsigned int)count; // 0..2
 }
@@ -36,13 +35,12 @@ unsigned int density_score(unsigned char count) {
 // Determine duration from score - step-wise mapping
 unsigned int get_duration(unsigned int score) {
     if (score <= 2) return 5;      // Low
-    else if (score <= 6) return 10; // Medium (not reachable in current presence demo)
-    else return 20;                // High (for completeness)
+    else if (score <= 6) return 10; // Medium (kept for completeness)
+    else return 20;                // High
 }
 
 // Set lane LEDs - lane index 0..3
 void set_lane_red(unsigned char lane) {
-    // For demonstration, we clear corresponding bits then set red bit.
     unsigned char mask = (RED_MASK << (lane*3));
     P2 &= ~(GREEN_MASK << (lane*3));
     P2 &= ~(YELLOW_MASK << (lane*3));
@@ -60,8 +58,6 @@ void set_lane_green(unsigned char lane) {
 }
 
 void all_red() {
-    // Set all lanes red (for safety)
-    // Clear all then set red bits for each lane
     P2 = 0x00;
     P2 |= (RED_MASK | (RED_MASK<<3) | (RED_MASK<<6) | (RED_MASK<<9));
 }
@@ -73,37 +69,29 @@ void init_ports() {
 
 void main() {
     unsigned int scores[4];
-    unsigned int durations[4];
     unsigned char i;
     unsigned char entry_pins[4] = {0,2,4,6}; // P1.0,P1.2,P1.4,P1.6
     unsigned char exit_pins[4]  = {1,3,5,7}; // P1.1,P1.3,P1.5,P1.7
     init_ports();
     while(1) {
-        // Read presence-based counts (0..2)
         for(i=0;i<4;i++) {
             unsigned char cnt = read_presence(entry_pins[i], exit_pins[i]);
             scores[i] = density_score(cnt);
         }
-        // Find lane with maximum score (priority-based)
         unsigned int max = 0;
         unsigned char max_lane = 0;
         for(i=0;i<4;i++) {
             if (scores[i] > max) { max = scores[i]; max_lane = i; }
         }
-        // Set selected lane green, others red
         for(i=0;i<4;i++) {
             if (i == max_lane) set_lane_green(i);
             else set_lane_red(i);
         }
-        // Determine duration (step-wise mapping)
         unsigned int dur = get_duration(scores[max_lane]);
         delay_seconds(dur);
-        // Yellow for 2 seconds
         set_lane_yellow(max_lane);
         delay_seconds(2);
-        // Short all-red
         all_red();
         delay_seconds(1);
-        // Loop continues - re-evaluate priorities
     }
 }

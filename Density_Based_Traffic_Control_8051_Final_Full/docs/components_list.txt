@@ -1,0 +1,1 @@
+AT89S52, 8 IR sensors, 12 LEDs, resistors, USB 5V, crystal 11.0592MHz.

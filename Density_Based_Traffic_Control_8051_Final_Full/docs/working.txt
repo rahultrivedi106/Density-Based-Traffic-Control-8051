@@ -1,0 +1,1 @@
+Priority-based presence demo. Use interrupts for production. Step-wise durations: 5/10/20s.

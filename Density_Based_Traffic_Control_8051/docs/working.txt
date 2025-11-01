@@ -1,4 +1,0 @@
-Working Notes:
-- Priority-based: select lane with highest score (presence-based demo).
-- For production implement counters via interrupts and debouncing.
-- Step-wise durations as defined in README.
