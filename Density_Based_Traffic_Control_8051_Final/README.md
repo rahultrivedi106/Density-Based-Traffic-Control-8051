@@ -69,24 +69,24 @@ After green: **Yellow = 2 s**, then **All-Red = 1 s**, and cycle repeats.
 ---
 
 ## 🧱 Block Diagram
-![Block Diagram](figures/block_diagram_colored.png)
+![Block Diagram](figures/block_diagram_in_a_digital_2D_illustration_showc.png)
 
 ---
 
 ## 💡 Circuit Diagram
-![Circuit Diagram](figures/circuit_diagram_colored.png)  
+![Circuit Diagram](figures/schematic_diagram_in_black_and_white_presents_an.png)  
 
 *IR modules send active-low signals to 8051 input pins; LEDs driven by output pins via transistors.*
 
 ---
 
 ## 🔁 Flowchart
-![Flowchart](figures/flowchart_colored.png)
+![Flowchart](figures/flowchart_in_the_image_illustrates_a_process_for.png)
 
 ---
 
-## 🛣️ 4-Way Junction with Sensors & Cars
-![4-Way Road Layout](figures/road_layout_with_sensors.png)  
+## 🛣️  Junction with Sensors & Cars
+![ Road Layout](figures/flat-style_digital_illustration_diagram_depicts_.png)  
 
 *Each lane has two IR sensors (Entry & Exit) placed before and after the stop line.  
 Traffic lights are positioned separately at each corner.  
@@ -95,7 +95,7 @@ The 8051 controller (center) receives signals from sensors and drives correspond
 ---
 
 ## 🚦 Example Output
-![LED Output Example](figures/output_leds_colored.png)
+![LED Output Example](figures/schematic_diagram_illustrates_a_four-lane_inters.png)
 
 *Dynamic control ensures that high-density lanes get longer green durations.*
 
